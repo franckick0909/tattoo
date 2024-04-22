@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import NavLink from "./navLink";
+import Social from "./social";
 
 const links = [
   { url: "/", title: "Home" },
@@ -136,14 +137,14 @@ const Navbar = () => {
   };
 
   return (
-    <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px20 xl:px48 text-xl">
+    <div className="w-full h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px20 xl:px48 text-xl">
       {/* LOGO */}
-      <Link href="/" className="text-2xl font-bold">
+      <Link href="/" className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
         Logo <span>FK</span>
       </Link>
 
       {/* MENU */}
-      <div className="flex items-center gap-4 w-1/3 md:text-sm lg:text-lg xl:text-xl">
+      <div className="hidden flex-1 justify-end gap-4 w-1/3 text-sm md:text-sm lg:text-lg md:flex">
         {links.map((link) => (
           <NavLink key={link.title} link={link} />
         ))}
@@ -152,8 +153,9 @@ const Navbar = () => {
       {/* MENU RESPONSIVE */}
       <div className="">
         {/* BURGER BUTTON */}
+        <div className="md:hidden flex items-center justify-center bg-slate-300 w-14 h-14 rounded-full ">
         <button
-          className="w-8 h-8 flex flex-col  gap-[5px] z-50 relative"
+          className="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-[5px] z-50 relative"
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <motion.div
@@ -172,6 +174,7 @@ const Navbar = () => {
             className="w-8 h-[3px] bg-black rounded"
           ></motion.div>
         </button>
+        </div>
 
         {/* DESKTOP MENU */}
         <AnimatePresence>
@@ -181,17 +184,23 @@ const Navbar = () => {
               initial="close"
               animate="open"
               exit="close"
-              className="flex flex-col justify-center items-center gap-4 absolute top-0 left-0  bg-black text-white w-full h-screen z-40"
+              className="flex flex-col justify-center items-center gap-4 absolute top-0 left-0 bg-black text-white w-full h-screen z-40"
             >
+              <div className=" flex flex-col items-end justify-center gap-4 w-[80%] h-[90%] ">
+                <div className="flex items-center justify-between w-full mb-8 border-[1px] border-transparent border-b-slate-600 pb-8 text-sm text-slate-600">
+                  Navigation
+                  <Social />
+                </div>
               {links.map((link) => (
                 <motion.div
                   variants={listItemsVariants}
-                  className=""
+                  className="flex justify-start px-[0%] z-50 w-full text-center rounded-md"
                   key={link.title}
                 >
-                  <Link href={link.url}>{link.title}</Link>
+                  <Link className=" cursor-pointer text-5xl" href={link.url}>{link.title}</Link>
                 </motion.div>
               ))}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

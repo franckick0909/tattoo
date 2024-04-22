@@ -1,9 +1,14 @@
-import React from 'react'
+import PortfolioPage from "./portfolio/page";
+import HeroPage from "./hero/page";
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
-  )
-}
+    <main className="max-w-full container m-auto">
+      <HeroPage />
 
-export default HomePage
+      <PortfolioPage />
+    </main>
+  );
+};
+
+export default HomePage;
