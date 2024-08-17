@@ -7,6 +7,13 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+    },
+
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -14,11 +21,13 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        orbitron: ["Orbitron", "sans-serif"],
+        rozhaOne: ["Rozha One", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
-        playfair: ["Playfair Display", "serif"],
-        rubik: ["Rubik", "sans-serif"],
-        spaceGrotesk: ["Space Grotesk", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        playfairSC: ["Playfair Display SC", "serif"],
+      },
+      animation: {
+        spin: "spin 4s linear infinite",
       },
     },
   },

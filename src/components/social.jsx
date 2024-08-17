@@ -1,9 +1,9 @@
 "use client";
-
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaGithub } from 'react-icons/fa';
+import Link from 'next/link';
+import { socialLinks} from '@/components/datas/data';
 import { motion } from 'framer-motion';
 
-const Social = () => {
+const Social = ({className}) => {
 
     const socialVariants = {
         hidden: {
@@ -23,22 +23,12 @@ const Social = () => {
     };
 
   return (
-    <motion.div className='flex items-center gap-2' variants={socialVariants} initial="hidden" animate="visible">
-        <motion.a href='https://www.facebook.com' variants={socialVariants} target='_blank' rel='noreferrer' className='text-2xl text-blue-500 hover:text-blue-700'>
-            <FaFacebook />
-        </motion.a>
-        <motion.a href='https://www.instagram.com' variants={socialVariants} target='_blank' rel='noreferrer' className='text-2xl text-pink-500 hover:text-pink-700'>
-            <FaInstagram />
-        </motion.a>
-        <motion.a href='https://www.twitter.com' variants={socialVariants} target='_blank' rel='noreferrer' className='text-2xl text-blue-400 hover:text-blue-600'>
-            <FaTwitter />
-        </motion.a>
-        <motion.a href='https://www.linkedin.com' variants={socialVariants} target='_blank' rel='noreferrer' className='text-2xl text-blue-700 hover:text-blue-900'>
-            <FaLinkedin />
-        </motion.a>
-        <motion.a href='https://www.github.com' variants={socialVariants} target='_blank' rel='noreferrer' className='text-2xl text-gray-800 hover:text-gray-900'>
-            <FaGithub />
-        </motion.a>
+    <motion.div className="flex items-center gap-5" variants={socialVariants} initial="hidden" animate="visible">
+        {socialLinks.map((item) => (
+            <Link href={item.href} key={item.id} className={className}>
+                {item.icon}
+            </Link>
+        ))}
     </motion.div>
   )
 }

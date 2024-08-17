@@ -1,48 +1,59 @@
-"use client";
-
+"use client"
 import Image from "next/image";
-import imgHero from "@/images/hero.png";
-import Social from "@/components/social";
-import SlideText from "@/components/slideText";
-import { useRef } from "react";
+import Link from "next/link";
+import { BtnTop } from "../../components/buttons/btnTop";
 import { motion } from "framer-motion";
 
-const HeroPage = () => {
-  const constraintsRef = useRef(null);
-
+export default function Hero() {
   return (
-    <motion.div layout>
-      <motion.section
-        ref={constraintsRef}
-        className="relative w-full h-full m-auto flex flex-col sm:flex-row gap-8 items-center justify-center px-4 sm:px-8 md:px-12 lg:px20 xl:px48 text-xl py-14"
+    <section id="Accueil" className="relative w-full h-screen overflow-hidden"
+    style={{ overflow: "hidden", width: "100%", height: "100vh"}}
+    >
+      <div className="relative w-full h-full overflow-hidden">
+      <motion.div
+      initial={{ clipPath: "circle(0% at 50% 50%)" }}
+      whileInView={{ clipPath: "circle(260% at 50% 50%)" }}
+      transition={{ duration: 1, delay: 0.5, ease: "easeInOut" }}
+      className="absolute w-full h-full overflow-hidden"
       >
-        <div className="flex-1 flex flex-col gap-5 ">
-          <h1 className="text-3xl font-bold">Franck Chapelon</h1>
-          <h3 className="orbitron text-lg">Welcome to the homepage</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Perspiciatis soluta vero accusantium. Inventore, fuga! Laborum error
-            accusantium voluptatem eum quasi.
-          </p>
-
-          <Social />
-        </div>
-
-        <div className="flex flex-1 max-w-sm rounded-3xl">
-          <Image
-            src={imgHero}
-            alt="Hero"
-            className="rounded-3xl drop-shadow-[0_35px_35px_rgba(0,0,0,0.6)] z-10"
-          />
-        </div>
-        <div className="overflow-hidden w-full h-full absolute bottom-[-70%] left-0 text-9xl font-bold whitespace-nowrap drop-shadow-2xl z-0">
-          <motion.div className="" drag dragConstraints={constraintsRef}>
-            <SlideText />
+        <div className="relative w-full h-full">
+      <Image src="/bg.png" alt="bghero" width={1000} height={1000} className="fixed inset-0 w-full h-full object-cover z-0" /></div>
+      </motion.div>
+      <div className="container mx-auto flex flex-col justify-center h-full">
+        <div className="relative flex flex-col items-center justify-center h-full w-full">
+          <motion.h1 initial={{ opacity: 0, x: -200 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          viewport={{ once: false, amount: 0.3 }}
+          className="text-5xl md:text-7xl lg:text-7xl xl:text-8xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-amber-500/50 via-amber-300 to-amber-100/80 z-10 border-b-amber-200/70 border-b-4 tracking-widest">
+           THE VOID
+          </motion.h1>
+          <motion.h2 initial={{ opacity: 0, x: 200 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.9 }}
+          viewport={{ once: false, amount: 0.3 }}
+          className="text-3xl font-playfair text-amber-500 tracking-widest">
+            TATOO
+          </motion.h2>
+          <motion.p initial={{ opacity: 0, x: -200 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          viewport={{ once: false, amount: 0.3 }}
+          className="text-amber-100/70 text-xl mt-4 text-center tracking-widest font-orbitron font-[100]">
+          VOTRE SALON DE TATOUAGE À PARIS 3ÈME
+          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.3 }}
+          viewport={{ once: false, amount: 0.3 }}
+          className="flex items-center h-auto mt-20 relative">
+            <Link href="/#Galerie" className="text-xl font-raleway text-white flex items-center">
+            <BtnTop btn="Découvrir" />
+            </Link>
           </motion.div>
         </div>
-      </motion.section>
-    </motion.div>
-  );
-};
-
-export default HeroPage;
+      </div>
+      </div>
+    </section>
+  )
+}
