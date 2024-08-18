@@ -14,11 +14,6 @@ export const navLinks = [
     href: "Propos",
   },
   {
-    id: "Galerie",
-    name: "Galerie",
-    href: "Galerie",
-  },
-  {
     id: "Galerie2",
     name: "Galerie2",
     href: "Galerie2",
@@ -27,6 +22,11 @@ export const navLinks = [
     id: "Team",
     name: "Team",
     href: "Team",
+  },
+  {
+    id: "Article",
+    name: "Article",
+    href: "Article",
   },
   {
     id: "Contact",
