@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Contact() {
   return (
@@ -24,6 +25,10 @@ export default function Contact() {
               Have a question or need assistance? Fill out the form below and
               we&apos;ll get back to you as soon as possible.
             </p>
+
+            <div className="w-full flex justify-center items-center mt-8">
+              <Image src="/logo.svg" alt="contact" width={400} height={400} />
+            </div>
           </div>
           <section className=" flex-1 bg-white py-12 md:py-20 rounded-lg shadow-md max-w-2xl">
             <div className="container mx-auto px-4 md:px-6">
