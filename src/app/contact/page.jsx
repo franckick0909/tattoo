@@ -1,17 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 export default function Contact() {
   return (
     <section
       id="Contact"
-      className="relative w-full min-h-screen grid place-items-center grid-cols-1 overflow-hidden py-36 bg-indigo-200"
+      className="relative w-full min-h-screen grid place-items-center grid-cols-1 overflow-hidden py-36 mx-auto"
     >
-      <div className="w-full h-full px-4 md:px-8 lg:px-16 xl:px-20 ">
-
-        <div className="w-full flex flex-col lg:flex-row items-start justify-center">
-          <div className="space-y-2 flex-1 max-w-2xl">
+      <div className="w-full h-full px-4 md:px-8 lg:px-16 xl:px-20  max-w-[1600px] mx-auto">
+        <div className="w-full flex flex-col lg:flex-row items-start justify-center gap-10">
+          <div className="space-y-2 flex-1 max-w-2xl gap-8">
             <motion.h1
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -25,9 +23,33 @@ export default function Contact() {
               Have a question or need assistance? Fill out the form below and
               we&apos;ll get back to you as soon as possible.
             </p>
-
-            <div className="w-full flex justify-center items-center mt-8">
-              <Image src="/logo.svg" alt="contact" width={400} height={400} />
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-sky-500 w-full h-full flex-col flex items-start justify-start p-6 col-span-1">
+                <h2 className="text-white text-2xl font-bold text-center mb-4">
+                  HORAIRES
+                </h2>
+                <div className="flex flex-col items-start justify-start gap-2">
+                  <p className="text-white text-center">
+                  du Lundi au Vendredi de 11h à 19h
+                  </p>
+                  <p className="text-white text-center">du Samedi de 11h à 17h</p>
+                  <p className="text-white text-center">du Dimanche de 14h à 17h</p>
+                </div>
+              </div>
+              <div className="bg-emerald-300 w-full h-full flex-col flex items-start justify-start p-6 col-span-2"></div>
+              <div className="bg-amber-500 w-full h-full flex-col flex items-start justify-start p-6 col-span-2">
+                <h2 className="text-white text-2xl font-bold text-center mb-4">
+                  HORAIRES
+                </h2>
+                <div className="flex flex-col items-start justify-start gap-2">
+                  <p className="text-white text-center">
+                    du Lundi - Vendredi 11h- 19h
+                  </p>
+                  <p className="text-white text-center">Samedi 8h- 17h</p>
+                  <p className="text-white text-center">Dimanche 9h- 17h</p>
+                </div>
+              </div>
+              <div className="bg-rose-500 w-full h-full flex-col flex items-start justify-start p-6 col-span-1"></div>
             </div>
           </div>
           <section className=" flex-1 bg-white py-12 md:py-20 rounded-lg shadow-md max-w-2xl">

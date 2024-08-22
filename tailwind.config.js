@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   prefix: "",
   theme: {
@@ -20,6 +20,8 @@ module.exports = {
       animation: {
         marquee: "marquee var(--duration) linear infinite",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+        flip: "flip 6s infinite steps(2, end)",
+        rotate: "rotate 3s linear infinite both",
       },
       keyframes: {
         marquee: {
@@ -31,7 +33,17 @@ module.exports = {
           to: { transform: "translateY(calc(-100% - var(--gap)))" },
         },
       },
+      flip: {
+        to: {
+          transform: "rotate(360deg)",
+        },
+      },
+      rotate: {
+        to: {
+          transform: "rotate(90deg)",
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

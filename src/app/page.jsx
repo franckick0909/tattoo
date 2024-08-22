@@ -1,9 +1,9 @@
 import Hero from "./hero/page";
-import Propos from "./Propos/page";
+import Propos from "./Le Studio/page";
 import Contact from "./Contact/page";
-import Galerie2 from "./Galerie2/page";
+import Galerie2 from "./Galerie/page";
 import Team from "./Team/page";
-import Article from "./Article/page";
+import Article from "./Testimonial/page";
 
 export default function Home() {
   return (

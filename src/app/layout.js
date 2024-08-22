@@ -1,6 +1,6 @@
 import { Inter, Rozha_One, Poppins, Playfair_Display_SC } from "next/font/google";
 import "./globals.css";
-import TransitionProvider from "@/components/transitionProvider";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({
    subsets: ["latin"],
@@ -29,8 +29,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       
-      <body className={`${inter.className} ${rozhaOne.className} ${poppins.className} ${playfairDisplaySC.className} `}>
-      <TransitionProvider>{children}</TransitionProvider>
+      <body className={`bg-gradient-to-tr from-slate-200 via-slate-50 to-neutral-200  ${inter.className} ${rozhaOne.className} ${poppins.className} ${playfairDisplaySC.className} `}>
+        <Navbar />
+        {children}
       </body>
     </html>
   );

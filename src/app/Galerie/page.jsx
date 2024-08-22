@@ -1,105 +1,128 @@
 "use client";
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import { galleryData } from "@/components/datas/data";
+import { MasonryPhotoAlbum } from "react-photo-album";
+import "react-photo-album/masonry.css";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
-const initialImages = [
-  { id: 1, src: "/gallery/img1.jpg", alt: "Image 1" },
-  { id: 2, src: "/gallery/img2.jpg", alt: "Image 2" },
-  { id: 3, src: "/gallery/img3.jpg", alt: "Image 3" },
-  { id: 4, src: "/gallery/img4.jpg", alt: "Image 4" },
-  { id: 5, src: "/gallery/img5.jpg", alt: "Image 5" },
-  { id: 6, src: "/gallery/img6.jpg", alt: "Image 6" },
-  { id: 7, src: "/gallery/img7.jpg", alt: "Image 7" },
-  { id: 8, src: "/gallery/img8.jpg", alt: "Image 8" },
-  { id: 9, src: "/gallery/img9.jpg", alt: "Image 9" },
-  { id: 10, src: "/gallery/img10.jpg", alt: "Image 10" },
-  { id: 11, src: "/gallery/img11.jpg", alt: "Image 11" },
-  { id: 12, src: "/gallery/img12.jpg", alt: "Image 12" },
-  { id: 13, src: "/gallery/img13.jpg", alt: "Image 13" },
-  { id: 14, src: "/gallery/img14.jpg", alt: "Image 14" },
-  { id: 15, src: "/gallery/img15.jpg", alt: "Image 15" },
-  { id: 16, src: "/gallery/img16.jpg", alt: "Image 16" },
-  { id: 17, src: "/gallery/img17.jpg", alt: "Image 17" },
-  { id: 18, src: "/gallery/img18.jpg", alt: "Image 18" },
-  { id: 19, src: "/gallery/img19.jpg", alt: "Image 19" },
-  { id: 20, src: "/gallery/img20.jpg", alt: "Image 20" },
-  { id: 21, src: "/gallery/img21.jpg", alt: "Image 21" },
-  // Ajoutez ici toutes vos images
-];
+export default function Galerie2() {
+  const [index, setIndex] = useState(-1);
+  const [currentGallery, setCurrentGallery] = useState("gallery1");
+  const [gallery, setGallery] = useState([]);
+  const [displayCount, setDisplayCount] = useState(5);
+  const [key, setKey] = useState(0);
 
-export default function Galerie() {
-  const [displayedImages, setDisplayedImages] = useState(initialImages.slice(0, 5));
-  const [lightboxImage, setLightboxImage] = useState(null);
+  const { title, btnText, btnIcon, galleryAll } = galleryData;
 
-  const loadMore = () => {
-    const currentLength = displayedImages.length;
-    const newImages = initialImages.slice(currentLength, currentLength + 5);
-    setDisplayedImages([...displayedImages, ...newImages]);
-  };
+  useEffect(() => {
+    const selectedGallery = galleryAll.find(g => g.id === currentGallery);
+    setGallery(selectedGallery ? selectedGallery.images.slice(0, displayCount) : []);
+  }, [currentGallery, galleryAll, displayCount]);
 
-  const openLightbox = (image) => {
-    setLightboxImage(image);
-  };
+  const handleGalleryChange = (galleryId) => {
+    setCurrentGallery(galleryId);
+    setDisplayCount(4);
+    setKey(prevKey => prevKey + 1);
+  }
 
-  const closeLightbox = () => {
-    setLightboxImage(null);
-  };
+  const handleLoadMore = () => {
+    setDisplayCount(prevCount => prevCount + 10);
+  }
 
-  return (
+  const slides = gallery.map(({ width, height, original }) => ({
+    src: original,
+    width,
+    height,
+  }));
+
+  return (  
     <section
       id="Galerie"
-      className="relative bg-indigo-200 w-full min-h-screen grid place-items-center grid-cols-1 overflow-hidden py-28">
+      className="relative w-full min-h-screen grid place-items-center grid-cols-1 overflow-hidden py-28"
+    >
+      <div className="w-full h-full px-4 md:px-8 lg:px-16 xl:px-20 ">
+        <motion.h2
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        viewport={{ once: false, amount: 0.3 }}
+        className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal mb-4 md:mb-6 lg:mb-20 text-center uppercase">
+          {title}
+        </motion.h2>
 
-<h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal mb-4 md:mb-6 lg:mb-8 xl:mb-10 max-w-32 uppercase">
-    {galleryData.title}
-</h2>
+<div className="flex justify-center gap-4 mb-8">
+  <ButtonGallery gallery="galerie Franck" onClick={() => handleGalleryChange("gallery1")} />
+  <ButtonGallery gallery="galerie Chris" onClick={() => handleGalleryChange("gallery2")} />
+  <ButtonGallery gallery="galerie Nono" onClick={() => handleGalleryChange("gallery3")} />
+  <ButtonGallery gallery="galerie Alicia" onClick={() => handleGalleryChange("gallery4")} />
+</div>
 
-      <div className="columns-2 gap-4 sm:columns-3 lg:columns-4 xl:columns-5 px-4 md:px-8 lg:px-16 xl:px-20 w-full h-full">
-        {displayedImages.map((image) => (
-          <div key={image.id} className="relative mb-4 cursor-pointer" onClick={() => openLightbox(image)}>
-            <Image
-              className="rounded-lg object-cover w-full h-auto"
-              src={image.src}
-              alt={image.alt}
-              width={600}
-              height={800}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        <motion.div
+        key={key}
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="mb-8 lg:mb-20">
+          <AnimatePresence>
+            <MasonryPhotoAlbum
+              photos={gallery}
+              onClick={({ index }) => setIndex(index)}
+              className="rounded-lg shadow-lg"
+              componentsProps={{ container: { style: { borderRadius: "8px", width: "100%", height: "100%"} } }}
+              layout="masonry"
+              layoutOptions={{  
+                width: 100,
+                borderRadius: "8px",
+                backgroundColor: "red",
+              }}
+              renderPhoto={({ photo, wrapperStyle, imageProps }) => (
+                <motion.div
+                  key={photo.src}
+                  initial={{ opacity: 0, y: -50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  transition={{ duration: 0.5 }}
+                  style={wrapperStyle}
+                >
+                  <Image 
+                    {...imageProps}  
+                    alt={photo.alt || `Image de la galerie ${currentGallery}`}  
+                    className="rounded-lg object-cover shadow-lg"
+                  />
+                </motion.div>
+              )}
             />
+          </AnimatePresence>
+
+          <Lightbox
+            slides={slides}
+            open={index >= 0}
+            index={index}
+            close={() => setIndex(-1)}
+            styles={{ container: { backgroundColor: "rgba(0, 0, 0, 0.8)" } }}
+          />
+        </motion.div>
+        <div className="flex justify-center">
+        <button onClick={handleLoadMore} className="text-white bg-slate-900 hover:bg-slate-950 transition-all duration-300 ease-in-out px-[6px] sm:px-3 md:px-6 py-[6px] xs:py-[6px] sm:py-2 md:py-4 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl flex items-center gap-2 group font-light font-playfairSC uppercase">
+          {btnText} 
+          <div className="group-hover:translate-x-2 transition-all duration-300 ease-in-out">
+            {btnIcon}
           </div>
-        ))}
+        </button>
+        </div>
       </div>
-      {displayedImages.length < initialImages.length && (
-        <div className="flex justify-center items-center mt-8">
-          <button
-            className="text-white bg-amber-500 hover:bg-amber-600 transition-all duration-300 ease-in-out px-6 py-3 rounded-full text-sm font-medium flex items-center gap-2 group"
-            onClick={loadMore}
-          >
-            {galleryData.btnText}
-            <div className="group-hover:translate-x-2 transition-all duration-300 ease-in-out">{galleryData.btnIcon}</div>
-          </button>
-        </div>
-      )}
-      {/* Lightbox */}
-      {lightboxImage && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeLightbox}>
-          <div className="relative max-w-4xl max-h-full">
-            <Image
-              src={lightboxImage.src}
-              alt={lightboxImage.alt}
-              width={1200}
-              height={800}
-              className="max-w-full max-h-[90vh] object-contain"
-            />
-            <button
-              className="absolute top-4 right-4 text-white text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
-              onClick={closeLightbox}
-            >
-              &times;
-            </button>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
+
+
+const ButtonGallery = ({ gallery, onClick }) => {
+  return (
+    <button onClick={onClick} className="text-white bg-slate-900 hover:bg-slate-950 transition-all duration-300 ease-in-out px-[6px] sm:px-3 md:px-6 py-[6px] xs:py-[6px] sm:py-2 md:py-4 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl flex items-center gap-1 md:gap-2 group font-light font-playfairSC uppercase">
+      {gallery}
+    </button>
+  );
+};
